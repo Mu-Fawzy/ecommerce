@@ -9,6 +9,8 @@ Route::group(
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){ 
 
-        Route::get('/{page}', 'AdminController@index');
+        Route::get('/', 'AdminController@index')->name('dashboard.home');
+
+        Route::resource('users', 'UserController');
 
 });
