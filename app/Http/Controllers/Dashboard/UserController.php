@@ -15,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('dashboard.users.index');
+        $users = User::paginate(5);
+        return view('dashboard.users.index', compact('users'));
     }
 
     /**
@@ -40,17 +41,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\user  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(user $user)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\user  $user
@@ -58,7 +48,7 @@ class UserController extends Controller
      */
     public function edit(user $user)
     {
-        //
+        return view('dashboard.users.edit');
     }
 
     /**
@@ -81,6 +71,8 @@ class UserController extends Controller
      */
     public function destroy(user $user)
     {
-        //
+        $user->delete();
+        session()->flash('success', 'User Deleted Successfull!');
+        return redirect()->route('users.index');
     }
 }

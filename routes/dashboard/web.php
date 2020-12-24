@@ -11,6 +11,6 @@ Route::group(
 
         Route::get('/', 'AdminController@index')->name('dashboard.home');
 
-        Route::resource('users', 'UserController');
+        Route::resource('users', 'UserController')->except('show');
 
 });
