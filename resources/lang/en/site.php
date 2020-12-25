@@ -20,6 +20,14 @@ return [
     'all users'   => 'All Users',
     'new user'   => 'New User',
     'users lists'   => 'Users Lists',
+
+    //categories 
+    'category'   => 'Category',
+    'categories'   => 'Categories',
+    'all categories'   => 'All Categories',
+    'new category'   => 'New Category',
+    'categories lists'   => 'Categories Lists',
+    'category name'   => 'Category Name',
     
     'user'      => 'user',
     'created'   => 'created',
@@ -44,6 +52,7 @@ return [
 
     'Search for anything...'   => 'Search for anything...',
     'search in users'   => 'Search In Users',
+    'search in categories'   => 'search in categories',
     'Search'   => 'Search',
 
 ];

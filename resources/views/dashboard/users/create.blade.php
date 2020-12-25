@@ -62,7 +62,7 @@
 											<div class=" tab-menu-heading">
 												<div class="tabs-menu1">
 													@php
-														$models = ['users'];
+														$models = ['users','categories'];
 														$permissions = ['create','read','update','delete'];
 													@endphp
 													<ul class="nav panel-tabs main-nav-line">

@@ -21,6 +21,14 @@ return [
     'new user'  => 'عضو جديد',
     'users lists'   => 'قائمة الاعضاء',
 
+    //categories 
+    'category'   => 'القسم',
+    'categories'   => 'الاقسام',
+    'all categories'   => 'كل الاقسام',
+    'new category'   => 'قسم جديد',
+    'categories lists'   => 'قائمة الاقسام',
+    'category name'   => 'اسم القسم',
+
     'user'      => 'العضو',
     'created'   => 'تاريخ الانشاء',
     'role'      => 'الرتبة',
@@ -44,6 +52,7 @@ return [
     
     'Search for anything...'   => 'ابحث عن اى شئ...',
     'search in users'   => 'ابحث فى الاعضاء',
+    'search in categories'   => 'ابحث فى الاقسام',
     'Search'   => 'ابحث',
 
 ];

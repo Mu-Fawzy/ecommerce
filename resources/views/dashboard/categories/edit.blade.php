@@ -2,8 +2,6 @@
 @section('css')
 <!-- Internal Select2 css -->
 <link href="{{URL::asset('dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
-<!---Internal Fileupload css-->
-<link href="{{URL::asset('dashboard/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
 <!--Internal  Datetimepicker-slider css -->
 <link href="{{URL::asset('dashboard/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('dashboard/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}" rel="stylesheet">
@@ -16,7 +14,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">@lang('site.users')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $user->full_name }}</span>
+							<h4 class="content-title mb-0 my-auto">@lang('site.categories')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $category->name }}</span>
 						</div>
 					</div>
 				</div>
@@ -29,67 +27,14 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="card  box-shadow-0">
 							<div class="card-header">
-								<h4 class="card-title mb-3">{{ $user->full_name }}</h4>
+								<h4 class="card-title mb-3">{{ $category->name }}</h4>
 							</div>
 							<div class="card-body pt-0">
-								<form class="form-horizontal" action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+								<form class="form-horizontal" action="{{ route('categories.update', $category->id) }}" method="POST">
 									@csrf
 									@method('PUT')
 									<div class="form-group">
-										<input type="text" class="form-control" name="first_name" placeholder="@lang('site.first name')" value="{{ $user->first_name }}">
-									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" name="last_name" placeholder="@lang('site.last name')" value="{{ $user->last_name }}">
-									</div>
-									<div class="form-group">
-										<input type="email" class="form-control" name="email" placeholder="@lang('site.email')" value="{{ $user->email }}">
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control" name="password" placeholder="@lang('site.password')">
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control" name="password_confirmation" placeholder="@lang('site.password confirm')">
-									</div>
-									<div class="form-group">
-										<div class="row mb-4">
-											<div class="col-sm-12 col-md-12 mg-t-10 mg-sm-t-0">
-												<input type="file" class="dropify" name="photo" data-default-file="{{URL::asset($user->path_photo)}}" data-height="200"  />
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="panel panel-primary tabs-style-1">
-											<div class=" tab-menu-heading">
-												<div class="tabs-menu1">
-													@php
-														$models = ['users','categories'];
-														$permissions = ['create','read','update','delete'];
-													@endphp
-													<ul class="nav panel-tabs main-nav-line">
-														@foreach ($models as $i=>$model)
-															<li class="nav-item"><a href="#{{ $model }}" class="nav-link {{ $i == 0 ? 'active' : '' }}" data-toggle="tab">@lang('site.'.$model)</a></li>
-														@endforeach
-													</ul>
-												</div>
-											</div>
-											<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
-												<div class="tab-content">
-													@foreach ($models as $i=>$model)
-													<div class="tab-pane {{ $i == 0 ? 'active' : '' }}" id="{{ $model }}">
-														<div class="parsley-checkbox">
-															@foreach ($permissions as $permission)
-																<label class="ckbox mg-b-5">
-																	<input name="permissions[]" type="checkbox" value="{{ $permission }}_{{ $model }}" {{ $user->hasPermission($permission.'_'.$model) ? 'checked' : '' }}>
-																	<span>@lang('site.'.$permission)</span>
-																</label>
-															@endforeach
-															
-														</div>
-													</div>
-													@endforeach
-												</div>
-											</div>
-										</div>
+										<input type="text" class="form-control" name="name" placeholder="@lang('site.category name')" value="{{ $category->name }}">
 									</div>
 									<div class="form-group mb-0 mt-3 justify-content-end">
 										<div>

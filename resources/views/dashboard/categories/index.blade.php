@@ -8,7 +8,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">@lang('site.all users')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('site.users lists') ({{ $users->total() }})</span>
+							<h4 class="content-title mb-0 my-auto">@lang('site.all categories')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('site.categories lists') ({{ $categories->total() }})</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -37,9 +37,9 @@
 						<div class="card"> 
 							<div class="card-body p-2"> 
 								
-								<form action="{{ route('users.index') }}" method="GET">
+								<form action="{{ route('categories.index') }}" method="GET">
 									<div class="input-group"> 
-										<input type="text" name="s" class="form-control" placeholder="@lang('site.search in users')" value="{{ request()->s }}"> 
+										<input type="text" name="s" class="form-control" placeholder="@lang('site.search in categories')" value="{{ request()->s }}"> 
 										<span class="input-group-append"> 
 											<button class="btn btn-primary" type="button">@lang('site.Search')</button> 
 										</span>
@@ -52,7 +52,7 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0 mb-2">@lang('site.users lists')</h4>
+									<h4 class="card-title mg-b-0 mb-2">@lang('site.categories lists')</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
 							</div>
@@ -61,46 +61,38 @@
 									<table class="table card-table table-striped table-vcenter text-nowrap mb-0">
 										<thead>
 											<tr>
-												<th class="wd-lg-8p"><span>@lang('site.user')</span></th>
-												<th class="wd-lg-20p"><span></span></th>
-												<th class="wd-lg-20p"><span>@lang('site.email')</span></th>
-												<th class="wd-lg-20p"><span>@lang('site.created')</span></th>
-												<th class="wd-lg-20p"><span>@lang('site.role')</span></th>
+												<th class="wd-lg-8p"><span>#</span></th>
+												<th class="wd-lg-20p"><span>@lang('site.category')</span></th>
 												<th class="wd-lg-20p">@lang('site.actions')</th>
 											</tr>
 										</thead>
 										<tbody>
-											@isset($users)
-												@foreach ($users as $user)
+											@isset($categories)
+												@foreach ($categories as $i=>$category)
 													<tr>
+														<td>{{ ++$i }}</td>
+														<td>{{ $category->name }}</td>
 														<td>
-															<img alt="avatar" class="rounded-circle avatar-md mr-2" src="{{URL::asset($user->path_photo)}}">
-														</td>
-														<td>{{ $user->full_name }}</td>
-														<td><a href="#">{{ $user->email }}</a></td>
-														<td>{{ $user->created_at }}</td>
-														<td> @foreach ($user->roles as $role) {{ $role->description }} @endforeach </td>
-														<td>
-															@if (auth()->user()->hasPermission('update_users'))
-																<a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info">
+															@if (auth()->user()->hasPermission('update_categories'))
+																<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-info">
 																	<i class="las la-pen"></i>
 																</a>
 															@else
-																<a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info disabled">
+																<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-info disabled">
 																	<i class="las la-pen"></i>
 																</a>
 															@endif
 
-															@if (auth()->user()->hasPermission('delete_users'))
-																<a href="{{ route('users.destroy',$user->id) }}" data-userid="{{ $user->id }}" class="btn btn-sm btn-danger delete_user">
+															@if (auth()->user()->hasPermission('delete_categories'))
+																<a href="{{ route('categories.destroy',$category->id) }}" data-categoryid="{{ $category->id }}" class="btn btn-sm btn-danger delete_category">
 																	<i class="las la-trash"></i>
 																</a>
-																<form class="edit_user_{{ $user->id }}" action="{{ route('users.destroy',$user->id) }}" method="post">
+																<form class="edit_category_{{ $category->id }}" action="{{ route('categories.destroy',$category->id) }}" method="post">
 																	@csrf
 																	@method('DELETE')
 																</form>
 															@else
-																<a href="{{ route('users.destroy',$user->id) }}" data-userid="{{ $user->id }}" class="btn btn-sm btn-danger delete_user disabled">
+																<a href="{{ route('categories.destroy',$category->id) }}" data-categoryid="{{ $category->id }}" class="btn btn-sm btn-danger delete_category disabled">
 																	<i class="las la-trash"></i>
 																</a>
 															@endif
@@ -112,7 +104,7 @@
 									</table>
 									
 								</div>
-								{{ $users->appends(request()->query())->links('dashboard.pagination.limit_links') }}
+								{{ $categories->appends(request()->query())->links('dashboard.pagination.limit_links') }}
 							</div>
 						</div>
 					</div><!-- COL END -->
@@ -131,10 +123,10 @@
 <!--Internal  Notify js -->
 <script src="{{URL::asset('dashboard/plugins/notify/js/notifIt.js')}}"></script>
 <script>
-	$('.delete_user').on('click', function(e){
+	$('.delete_category').on('click', function(e){
 		e.preventDefault();
-		var dataID = $(this).data('userid');
-		$('form.edit_user_'+dataID).submit();
+		var dataID = $(this).data('categoryid');
+		$('form.edit_category_'+dataID).submit();
 	});
 </script>
 @include('dashboard\alerts\_success')
