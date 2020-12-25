@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+// import the Intervention Image Manager Class
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
@@ -15,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(5);
+        $users = User::latest()->paginate(5);
         return view('dashboard.users.index', compact('users'));
     }
 
@@ -37,7 +40,38 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'first_name' => 'required|min:4',
+            'last_name' => 'required|min:4',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+            'photo' => 'image|mimes:png,jpg',
+            'permissions' => 'array',
+        ]);
+
+        $data = $request->except('password_confirmation','photo','permissions');
+        
+        if($request->hasFile('photo'))
+        {
+            $image_name = $request->photo->hashName();
+            $img = Image::make($request->photo)->resize(null, 62, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/users/'.$image_name), 80);
+            $data['photo'] = $image_name;
+        }
+
+        $user = User::create($data);
+
+        $user->attachRole('admin');
+
+
+        if($request->has('permissions'))
+        {
+            $user->syncPermissions($request->permissions);
+        }
+
+        session()->flash('success', 'User Create Successfull!');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -48,7 +82,7 @@ class UserController extends Controller
      */
     public function edit(user $user)
     {
-        return view('dashboard.users.edit');
+        return view('dashboard.users.edit' , compact('user'));
     }
 
     /**
@@ -60,7 +94,47 @@ class UserController extends Controller
      */
     public function update(Request $request, user $user)
     {
-        //
+        //return $request;
+        $this->validate($request,[
+            'first_name' => 'required|min:4',
+            'last_name' => 'required|min:4',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'password' => 'sometimes|confirmed',
+            'photo' => 'image|mimes:png,jpg',
+            'permissions' => 'array',
+        ]);
+
+        $data = $request->except('password','password_confirmation','photo','permissions');
+        
+        if($request->hasFile('photo'))
+        {
+            if ($user->photo != 'avatar.png') {
+                Storage::disk('public_uploads')->delete('users/'. $user->photo);
+            }
+            $image_name = $request->photo->hashName();
+            $img = Image::make($request->photo)->resize(null, 62, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/users/'.$image_name), 80);
+            $data['photo'] = $image_name;
+        }
+
+        //password
+        if($request->has('password') && $request->password != null)
+        {
+            $data['password'] = $request->password;
+        }
+
+        $user->update($data);
+
+        if($request->has('permissions'))
+        {
+            $user->syncPermissions($request->permissions);
+        }else {
+            $user->detachPermissions($request->permissions);
+        }
+
+        session()->flash('success', 'User Updated Successfull!');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -71,6 +145,9 @@ class UserController extends Controller
      */
     public function destroy(user $user)
     {
+        if ($user->photo != 'avatar.png') {
+            Storage::disk('public_uploads')->delete('users/'. $user->photo);
+        }
         $user->delete();
         session()->flash('success', 'User Deleted Successfull!');
         return redirect()->route('users.index');

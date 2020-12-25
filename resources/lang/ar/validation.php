@@ -149,6 +149,8 @@ return [
         'email'                 => 'البريد الالكتروني',
         'first_name'            => 'الاسم الأول',
         'last_name'             => 'اسم العائلة',
+        'photo'                 => 'الصورة',
+        'permissions'           => 'الصلاحيات',
         'password'              => 'كلمة المرور',
         'password_confirmation' => 'تأكيد كلمة المرور',
         'city'                  => 'المدينة',

@@ -12,11 +12,34 @@ return [
     |
     */
 
-    'Home'   => 'الرئيسية',
-    'General'   => 'الاعدادات العامة',
+    'home'   => 'الرئيسية',
+    'general'   => 'الاعدادات العامة',
 
     //users 
-    'Users'   => 'الاعضاء',
-    'All Users'   => 'كل الاعضاء',
-    'Create'   => 'انشاء',
+    'users'     => 'الاعضاء',
+    'all users' => 'كل الاعضاء',
+    'new user'  => 'عضو جديد',
+    'users lists'   => 'قائمة الاعضاء',
+
+    'user'      => 'العضو',
+    'created'   => 'تاريخ الانشاء',
+    'role'      => 'الرتبة',
+    'actions'    => 'العمليات',
+
+    'first name'   => 'الاسم الاول',
+    'last name'   => 'الاسم الاخير',
+    'email'   => 'البريد الالكترونى',
+    'password'   => 'كلمة المرور',
+    'password confirm'   => 'تأكيد كلمة المرور',
+    'Drag and drop or click to replace'   => 'قم بالسحب والافلات أو اضغط لافلات الصورة',
+    'Drag and drop a file here or click'   => 'قم بالسحب والافلات أو اضغط لاختيار الصورة',
+    'Remove'   => 'إزالة',
+    'Ooops, something wrong appended.'   => 'عفوًا ، تم إلحاق شيء خاطئ.',
+    'The file size is too big (2M max).'   => 'حجم الملف كبير جدًا (2 ميجا كحد أقصى).',
+
+    'create'   => 'انشاء',
+    'read'   => 'قراءة',
+    'update'   => 'تحديث',
+    'delete'   => 'حذف',
+
 ];

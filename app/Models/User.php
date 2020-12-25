@@ -46,7 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name','path_photo'];
 
 
     public function getFullNameAttribute()
@@ -54,9 +54,14 @@ class User extends Authenticatable
         return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
-    public function getPhotoAttribute($value)
+    public function getPathPhotoAttribute()
     {
-        return '/uploads/users/'.$value;
+        return '/uploads/users/'. $this->photo;
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
     public function getCreatedAtAttribute($date)

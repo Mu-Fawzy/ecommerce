@@ -1,12 +1,11 @@
 $('.dropify').dropify({
 	messages: {
-		'default': 'Drag and drop a file here or click',
-		'replace': 'Drag and drop or click to replace',
-		'remove': 'Remove',
-		'error': 'Ooops, something wrong appended.'
+		'default': $lang_click,
+		'replace': $lang_replace,
+		'remove': $lang_remove,
+		'error': $lang_appended
 	},
 	error: {
-		'fileSize': 'The file size is too big (2M max).'
+		'fileSize': $lang_size
 	}
 });
-	
