@@ -42,4 +42,8 @@ return [
     'update'   => 'Update',
     'delete'   => 'Delete',
 
+    'Search for anything...'   => 'Search for anything...',
+    'search in users'   => 'Search In Users',
+    'Search'   => 'Search',
+
 ];

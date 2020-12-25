@@ -11,14 +11,28 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:create_users')->only('create');
+        $this->middleware('permission:read_users')->only('index');
+        $this->middleware('permission:update_users')->only('edit');
+        $this->middleware('permission:delete_users')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->paginate(5);
+        $users = User::whereRoleIs('admin')->where(function($query) use($request) {
+            return $query->when($request->s,function($q) use($request){
+                return $q->where('first_name','like', '%'.$request->s.'%')
+                ->orWhere('last_name','like', '%'.$request->s.'%')
+                ->orWhere('email','like', '%'.$request->s.'%');
+            });
+        })->latest()->paginate(5);
         return view('dashboard.users.index', compact('users'));
     }
 

@@ -41,5 +41,9 @@ return [
     'read'   => 'قراءة',
     'update'   => 'تحديث',
     'delete'   => 'حذف',
+    
+    'Search for anything...'   => 'ابحث عن اى شئ...',
+    'search in users'   => 'ابحث فى الاعضاء',
+    'Search'   => 'ابحث',
 
 ];

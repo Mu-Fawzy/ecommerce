@@ -34,6 +34,21 @@
 				<!--Row-->
 				<div class="row row-sm">
 					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
+						<div class="card"> 
+							<div class="card-body p-2"> 
+								
+								<form action="{{ route('users.index') }}" method="GET">
+									<div class="input-group"> 
+										<input type="text" name="s" class="form-control" placeholder="@lang('site.search in users')" value="{{ request()->s }}"> 
+										<span class="input-group-append"> 
+											<button class="btn btn-primary" type="button">@lang('site.Search')</button> 
+										</span>
+									</div>  
+								</form>
+								
+							</div> 
+						</div>
+
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
@@ -82,21 +97,9 @@
 											@endisset
 										</tbody>
 									</table>
-									{{ $users->links() }}
+									
 								</div>
-								<ul class="pagination mt-4 mb-0 float-left">
-									<li class="page-item page-prev disabled">
-										<a class="page-link" href="#" tabindex="-1">Prev</a>
-									</li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item page-next">
-										<a class="page-link" href="#">Next</a>
-									</li>
-								</ul>
+								{{ $users->appends(request()->query())->links('dashboard.pagination.limit_links') }}
 							</div>
 						</div>
 					</div><!-- COL END -->
