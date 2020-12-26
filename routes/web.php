@@ -20,9 +20,9 @@ Route::group(
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){ 
 
-        // Route::get('/', function () {
-        //     return view('welcome');
-        // });
+        Route::get('/', function () {
+            return view('welcome');
+        });
         
         Auth::routes();
         

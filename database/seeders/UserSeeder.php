@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'first_name' => 'mohamed',
             'last_name' => 'fawzy',
             'email' => 'mrrmohamedfawzy@gmail.com',
-            'password' => bcrypt('00000000'),
+            'password' => '00000000',
         ]);
         $user->attachRole('super_admin');
     }
