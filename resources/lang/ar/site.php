@@ -27,7 +27,13 @@ return [
     'all categories'   => 'كل الاقسام',
     'new category'   => 'قسم جديد',
     'categories lists'   => 'قائمة الاقسام',
-    'category name'   => 'اسم القسم',
+    
+    'ar' => [
+        'category name'   => 'اسم القسم بالعربية',
+    ],
+    'en' => [
+        'category name'   => 'اسم القسم بالانجليزية',
+    ],
 
     'user'      => 'العضو',
     'created'   => 'تاريخ الانشاء',

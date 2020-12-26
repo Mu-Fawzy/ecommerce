@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class CategroyController extends Controller
@@ -49,11 +50,14 @@ class CategroyController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => 'required|min:4|unique:categories,name',
-        ]);
+        $rules = [];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name' => ['required','min:4',Rule::unique('category_translations', 'name')]];
+        }
+        
+        $this->validate($request,$rules);
 
-        $categories = Category::create($request->all());
+        $categories = Category::create($request->except('_token'));
 
         session()->flash('success', 'Category Create Successfull!');
         return redirect()->route('categories.index');
@@ -80,10 +84,19 @@ class CategroyController extends Controller
     public function update(Request $request, Category $category)
     {
         //return $request;
-        $this->validate($request,[
-            'name' => 'required|min:4|unique:categories,name,'.$category->id,
-        ]);
 
+        $rules = [];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name' => [
+                'required',
+                'min:4', 
+                Rule::unique('category_translations','name')->ignore($category->id)
+                ]
+            ];
+        }
+
+            
+        $this->validate($request,$rules);
 
         $category->update($request->all());
 

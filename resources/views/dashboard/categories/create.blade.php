@@ -33,9 +33,13 @@
 							<div class="card-body pt-0">
 								<form class="form-horizontal" action="{{ route('categories.store') }}" method="POST">
 									@csrf
-									<div class="form-group">
-										<input type="text" class="form-control" name="name" placeholder="@lang('site.category name')" value="{{ old('name') }}">
-									</div>
+									
+									@foreach (config('translatable.locales') as $locale)
+										<div class="form-group">
+											<input type="text" class="form-control" name="{{ $locale }}[name]" placeholder="@lang('site.'.$locale.'.category name')" value="{{ old($locale.'.name') }}">
+										</div>
+									@endforeach
+
 									<div class="form-group mb-0 mt-3 justify-content-end">
 										<div>
 											<button type="submit" class="btn btn-primary">@lang('site.create') @lang('site.new category')</button>

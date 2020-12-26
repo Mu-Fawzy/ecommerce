@@ -27,8 +27,14 @@ return [
     'all categories'   => 'All Categories',
     'new category'   => 'New Category',
     'categories lists'   => 'Categories Lists',
-    'category name'   => 'Category Name',
     
+    'ar' => [
+        'category name'   => 'Category Name by Arabic',
+    ],
+    'en' => [
+        'category name'   => 'Category Name by English',
+    ],
+
     'user'      => 'user',
     'created'   => 'created',
     'role'      => 'role',

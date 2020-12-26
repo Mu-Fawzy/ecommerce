@@ -33,9 +33,11 @@
 								<form class="form-horizontal" action="{{ route('categories.update', $category->id) }}" method="POST">
 									@csrf
 									@method('PUT')
-									<div class="form-group">
-										<input type="text" class="form-control" name="name" placeholder="@lang('site.category name')" value="{{ $category->name }}">
-									</div>
+									@foreach (config('translatable.locales') as $locale)
+										<div class="form-group">
+											<input type="text" class="form-control" name="{{ $locale }}[name]" placeholder="@lang('site.'.$locale.'.category name')" value="{{ $category->translate($locale)->name }}">
+										</div>
+									@endforeach
 									<div class="form-group mb-0 mt-3 justify-content-end">
 										<div>
 											<button type="submit" class="btn btn-primary">@lang('site.update')</button>
