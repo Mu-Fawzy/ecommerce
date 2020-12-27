@@ -28,7 +28,7 @@ return [
     'new category'   => 'New Category',
     'categories lists'   => 'Categories Lists',
 
-    //categories 
+    //products 
     'product'   => 'Product',
     'products'   => 'Products',
     'all products'   => 'All Products',
@@ -36,6 +36,7 @@ return [
     'purchase price'   => 'Purchase Price',
     'sale price'   => 'Sale Price',
     'stock'   => 'Stock',
+    'profit percent'   => 'Profit Percent',
     
     
     'ar' => [

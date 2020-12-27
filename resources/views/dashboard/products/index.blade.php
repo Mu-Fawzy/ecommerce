@@ -62,12 +62,13 @@
 										<thead>
 											<tr>
 												<th class="wd-lg-8p"><span>#</span></th>
-												<th class="wd-lg-20p"><span>@lang('site.product')</span></th>
+												<th class="wd-lg-8p"><span>@lang('site.product')</span></th>
 												<th class="wd-lg-20p"><span></span></th>
 												<th class="wd-lg-20p"><span>@lang('site.'.app()->getLocale().'.description')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.category')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.purchase price')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.sale price')</span></th>
+												<th class="wd-lg-20p"><span>@lang('site.profit percent')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.stock')</span></th>
 												<th class="wd-lg-20p">@lang('site.actions')</th>
 											</tr>
@@ -83,6 +84,7 @@
 														<td>{{ $product->category->name }}</td>
 														<td>{{ $product->purchase_price }}</td>
 														<td>{{ $product->sale_price }}</td>
+														<td>{{ $product->profit_percent }}</td>
 														<td>{{ $product->stock }}</td>
 														<td>
 															@if (auth()->user()->hasPermission('update_products'))

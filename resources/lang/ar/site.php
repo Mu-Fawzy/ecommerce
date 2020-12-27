@@ -28,7 +28,7 @@ return [
     'new category'   => 'قسم جديد',
     'categories lists'   => 'قائمة الاقسام',
     
-    //categories 
+    //products 
     'product'   => 'المنتج',
     'products'   => 'المنتجات',
     'all products'   => 'كل المنتجات',
@@ -36,6 +36,7 @@ return [
     'purchase price'   => 'سعر الشراء',
     'sale price'   => 'سعر البيع',
     'stock'   => 'المخزون',
+    'profit percent'   => 'المكسب',
     
     'ar' => [
         'category name'   => 'اسم القسم بالعربية',

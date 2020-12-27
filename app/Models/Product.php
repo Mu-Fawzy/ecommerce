@@ -16,7 +16,7 @@ class Product extends Model implements TranslatableContract
 
     public $translatedAttributes = ['product_name','description'];
 
-    protected $appends = ['file_path'];
+    protected $appends = ['file_path', 'profit_percent'];
 
     public function getFilePathAttribute()
     {
@@ -26,5 +26,11 @@ class Product extends Model implements TranslatableContract
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function getProfitPercentAttribute()
+    {
+        $increas = $this->sale_price - $this->purchase_price; //الفرق بين الرقمين
+        return $res = number_format($increas / $this->purchase_price * 100,2);
     }
 }

@@ -32,6 +32,8 @@ class ProductController extends Controller
                 ->orWhereTranslationLike('description', '%'.$request->s.'%');
             });
         })->latest()->paginate(5);
+
+        
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -126,7 +128,6 @@ class ProductController extends Controller
 
         $this->validate($request,$rules);
 
-        
         if ($request->hasFile('photo')) {
             if($product->photo != 'default-product.png'){
                 Storage::disk('public_uploads')->delete('products/'.$product->photo);
