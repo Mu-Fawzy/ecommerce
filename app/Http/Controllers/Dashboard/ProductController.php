@@ -30,6 +30,8 @@ class ProductController extends Controller
             return $q->when($request->s, function($query) use($request) {
                 return $query->whereTranslationLike('product_name', '%'.$request->s.'%')
                 ->orWhereTranslationLike('description', '%'.$request->s.'%');
+            })->when($request->cat, function($q_cat) use($request){
+                return $q_cat->where('category_id', $request->cat);
             });
         })->latest()->paginate(5);
 

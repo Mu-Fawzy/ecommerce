@@ -63,6 +63,8 @@
 											<tr>
 												<th class="wd-lg-8p"><span>#</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.category')</span></th>
+												<th class="wd-lg-20p"><span>@lang('site.number of products')</span></th>
+												<th class="wd-lg-20p"><span>@lang('site.related products')</span></th>
 												<th class="wd-lg-20p">@lang('site.actions')</th>
 											</tr>
 										</thead>
@@ -72,6 +74,8 @@
 													<tr>
 														<td>{{ ++$i }}</td>
 														<td>{{ $category->name }}</td>
+														<td>{{ $category->products->count() }}</td>
+														<td><a href="{{ route('products.index', ['cat'=>$category->id]) }}" class="btn btn-success">@lang('site.related products')</a></td>
 														<td>
 															@if (auth()->user()->hasPermission('update_categories'))
 																<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-info">

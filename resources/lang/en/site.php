@@ -37,6 +37,8 @@ return [
     'sale price'   => 'Sale Price',
     'stock'   => 'Stock',
     'profit percent'   => 'Profit Percent',
+    'number of products'   => 'Number Of Products',
+    'related products'   => 'Related Products',
     
     
     'ar' => [

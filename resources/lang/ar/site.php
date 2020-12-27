@@ -37,6 +37,8 @@ return [
     'sale price'   => 'سعر البيع',
     'stock'   => 'المخزون',
     'profit percent'   => 'المكسب',
+    'number of products'   => 'عدد المنتجات',
+    'related products'   => 'المنتجات المرتبطة',
     
     'ar' => [
         'category name'   => 'اسم القسم بالعربية',
