@@ -150,11 +150,18 @@ return [
     'attributes' => [
         'ar' => [
             'name'   => 'Name By Ar',
+            'product_name'   => 'Prduct Name By Ar',
+            'description'   => 'Description By Ar',
         ],
         'en' => [
             'name'   => 'Name By En',
+            'porduct_name'   => 'Prduct Name By En',
+            'description'   => 'Description By En',
         ],
 
+        'purchase_price'   => 'Purchase Price',
+        'sale_price'   => 'Sale Price',
+        'stock'   => 'Stock',
     ],
 
 ];

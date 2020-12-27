@@ -27,12 +27,26 @@ return [
     'all categories'   => 'All Categories',
     'new category'   => 'New Category',
     'categories lists'   => 'Categories Lists',
+
+    //categories 
+    'product'   => 'Product',
+    'products'   => 'Products',
+    'all products'   => 'All Products',
+    'new product'   => 'new product',
+    'purchase price'   => 'Purchase Price',
+    'sale price'   => 'Sale Price',
+    'stock'   => 'Stock',
+    
     
     'ar' => [
         'category name'   => 'Category Name by Arabic',
+        'description'   => 'Description by Arabic',
+        'prduct name'   => 'Product Name by Arabic',
     ],
     'en' => [
         'category name'   => 'Category Name by English',
+        'description'   => 'Description by English',
+        'prduct name'   => 'Product Name by English',
     ],
 
     'user'      => 'user',
@@ -58,7 +72,8 @@ return [
 
     'Search for anything...'   => 'Search for anything...',
     'search in users'   => 'Search In Users',
-    'search in categories'   => 'search in categories',
+    'search in categories'   => 'Search In Categories',
+    'search in products'   => 'Search In Products',
     'Search'   => 'Search',
 
 ];

@@ -15,6 +15,8 @@ Route::group(
             Route::resource('users', 'UserController')->except('show');
             //categories route
             Route::resource('categories', 'CategroyController')->except('show');
+            //products route
+            Route::resource('products', 'ProductController')->except('show');
         });
         
 

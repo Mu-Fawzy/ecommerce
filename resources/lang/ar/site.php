@@ -28,11 +28,24 @@ return [
     'new category'   => 'قسم جديد',
     'categories lists'   => 'قائمة الاقسام',
     
+    //categories 
+    'product'   => 'المنتج',
+    'products'   => 'المنتجات',
+    'all products'   => 'كل المنتجات',
+    'new product'   => 'منتج جديد',
+    'purchase price'   => 'سعر الشراء',
+    'sale price'   => 'سعر البيع',
+    'stock'   => 'المخزون',
+    
     'ar' => [
         'category name'   => 'اسم القسم بالعربية',
+        'description'   => 'وصف المنتج بالعربية',
+        'prduct name'   => 'اسم المنتج بالعربية',
     ],
     'en' => [
         'category name'   => 'اسم القسم بالانجليزية',
+        'description'   => 'وصف المنتج بالانجليزية',
+        'prduct name'   => 'اسم المنتج بالانجليزية',
     ],
 
     'user'      => 'العضو',
@@ -59,6 +72,7 @@ return [
     'Search for anything...'   => 'ابحث عن اى شئ...',
     'search in users'   => 'ابحث فى الاعضاء',
     'search in categories'   => 'ابحث فى الاقسام',
+    'search in products'   => 'ابحث فى المنتجات',
     'Search'   => 'ابحث',
 
 ];

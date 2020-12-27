@@ -16,7 +16,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">@lang('site.users')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $user->full_name }}</span>
+							<h4 class="content-title mb-0 my-auto">@lang('site.products')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('site.all products')</span>
 						</div>
 					</div>
 				</div>
@@ -29,71 +29,43 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="card  box-shadow-0">
 							<div class="card-header">
-								<h4 class="card-title mb-3">{{ $user->full_name }}</h4>
+								<h4 class="card-title mb-1">@lang('site.create') @lang('site.new product')</h4>
+								<p class="mb-2">@lang('site.create') @lang('site.new product')</p>
 							</div>
 							<div class="card-body pt-0">
-								<form class="form-horizontal" action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+
+								<form class="form-horizontal" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
 									@csrf
-									@method('PUT')
+
+									@foreach (config('translatable.locales') as $i=>$locale)
 									<div class="form-group">
-										<input type="text" class="form-control" name="first_name" placeholder="@lang('site.first name')" value="{{ $user->first_name }}">
+										<input type="text" class="form-control" name="{{ $locale }}[product_name]" placeholder="@lang('site.'.$locale.'.prduct name')" value="{{ old($locale.'.product_name') }}">
 									</div>
+									
 									<div class="form-group">
-										<input type="text" class="form-control" name="last_name" placeholder="@lang('site.last name')" value="{{ $user->last_name }}">
+										<textarea class="form-control" name="{{ $locale }}[description]" rows="3" placeholder="@lang('site.'.$locale.'.description')">{{ old($locale.'.description') }}</textarea>
 									</div>
-									<div class="form-group">
-										<input type="email" class="form-control" name="email" placeholder="@lang('site.email')" value="{{ $user->email }}">
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control" name="password" placeholder="@lang('site.password')">
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control" name="password_confirmation" placeholder="@lang('site.password confirm')">
-									</div>
+									@endforeach
 									<div class="form-group">
 										<div class="row mb-4">
 											<div class="col-sm-12 col-md-12 mg-t-10 mg-sm-t-0">
-												<input type="file" class="dropify" name="photo" data-default-file="{{URL::asset($user->path_photo)}}" data-height="200"  />
+												<input type="file" class="dropify" name="photo" data-height="200" />
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="panel panel-primary tabs-style-1">
-											<div class=" tab-menu-heading">
-												<div class="tabs-menu1">
-													@php
-														$models = ['users','categories','products'];
-														$permissions = ['create','read','update','delete'];
-													@endphp
-													<ul class="nav panel-tabs main-nav-line">
-														@foreach ($models as $i=>$model)
-															<li class="nav-item"><a href="#{{ $model }}" class="nav-link {{ $i == 0 ? 'active' : '' }}" data-toggle="tab">@lang('site.'.$model)</a></li>
-														@endforeach
-													</ul>
-												</div>
-											</div>
-											<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
-												<div class="tab-content">
-													@foreach ($models as $i=>$model)
-													<div class="tab-pane {{ $i == 0 ? 'active' : '' }}" id="{{ $model }}">
-														<div class="parsley-checkbox">
-															@foreach ($permissions as $permission)
-																<label class="ckbox mg-b-5">
-																	<input name="permissions[]" type="checkbox" value="{{ $permission }}_{{ $model }}" {{ $user->hasPermission($permission.'_'.$model) ? 'checked' : '' }}>
-																	<span>@lang('site.'.$permission)</span>
-																</label>
-															@endforeach
-															
-														</div>
-													</div>
-													@endforeach
-												</div>
-											</div>
-										</div>
+										<input type="number" step="0.01" class="form-control" name="purchase_price" placeholder="@lang('site.purchase price')" value="{{ old('purchase_price') }}">
 									</div>
+									<div class="form-group">
+										<input type="number" step="0.01" class="form-control" name="sale_price" placeholder="@lang('site.sale price')" value="{{ old('sale_price') }}">
+									</div>
+									<div class="form-group">
+										<input type="number" class="form-control" name="stock" placeholder="@lang('site.stock')" value="{{ old('stock') }}">
+									</div>
+									
 									<div class="form-group mb-0 mt-3 justify-content-end">
 										<div>
-											<button type="submit" class="btn btn-primary">@lang('site.update')</button>
+											<button type="submit" class="btn btn-primary">@lang('site.create') @lang('site.new product')</button>
 										</div>
 									</div>
 								</form>
