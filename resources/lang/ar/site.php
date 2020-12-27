@@ -65,6 +65,7 @@ return [
     'The file size is too big (2M max).'   => 'حجم الملف كبير جدًا (2 ميجا كحد أقصى).',
 
     'create'   => 'انشاء',
+    'edit'   => 'تعديل',
     'read'   => 'قراءة',
     'update'   => 'تحديث',
     'delete'   => 'حذف',

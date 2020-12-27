@@ -16,4 +16,8 @@ class Category extends Model implements TranslatableContract
 
     public $translatedAttributes = ['name'];
     
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
 }

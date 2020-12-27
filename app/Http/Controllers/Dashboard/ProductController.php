@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -22,9 +24,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(5);
+        $products = Product::where(function($q) use($request) {
+            return $q->when($request->s, function($query) use($request) {
+                return $query->whereTranslationLike('product_name', '%'.$request->s.'%')
+                ->orWhereTranslationLike('description', '%'.$request->s.'%');
+            });
+        })->latest()->paginate(5);
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -35,7 +42,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('dashboard\products\create');
+
+        // we will make categories row for products
+        $categories = Category::all();
+        return view('dashboard\products\create', compact('categories'));
     }
 
     /**
@@ -46,7 +56,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
+        // return $request;
         $data = $request->except('photo');
         $rules = [];
 
@@ -71,6 +81,7 @@ class ProductController extends Controller
         }
 
         $product = Product::create($data);
+
         session()->flash('success', 'Product Create Successfull!');
         return redirect()->route('products.index');
 
@@ -84,7 +95,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('dashboard\products\edit', compact('product','categories'));
     }
 
     /**
@@ -96,7 +108,39 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // return $request;
+        $data = $request->except('photo');
+        $rules = [];
+
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.product_name' => ['required','min:4','string',Rule::unique('product_translations', 'product_name')->ignore($product->id, 'product_id')]];
+            $rules += [$locale.'.description' => ['required',Rule::unique('product_translations', 'description')->ignore($product->id, 'product_id')]];
+        }
+
+        $rules += [
+            'photo'             => 'sometimes|image|mimes:png,jpg',
+            'purchase_price'    => 'required|numeric',
+            'sale_price'        => 'required|numeric',
+            'stock'             => 'sometimes|numeric'
+        ];
+
+        $this->validate($request,$rules);
+
+        
+        if ($request->hasFile('photo')) {
+            if($product->photo != 'default-product.png'){
+                Storage::disk('public_uploads')->delete('products/'.$product->photo);
+            }
+            $photo_name = $request->photo->hashName();
+            Image::make($request->photo)->greyscale()->save(public_path('uploads/products/'.$photo_name), 60);
+            $data['photo'] = $photo_name;
+        }
+
+        $product->update($data);
+
+        session()->flash('success', 'Product Updated Successfull!');
+        return redirect()->route('products.index');
+
     }
 
     /**
@@ -107,6 +151,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if ($product->photo != 'default-product.png') {
+            Storage::disk('public_uploads')->delete('products/'.$product->photo);
+        }
+        $product->delete();
+
+        session()->flash('success', 'Product Deleted Successfull!');
+        return redirect()->route('products.index');
+        
     }
 }

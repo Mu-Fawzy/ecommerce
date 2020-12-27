@@ -37,6 +37,17 @@
 								<form class="form-horizontal" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
 									@csrf
 
+									@isset($categories)
+										<div class="form-group">
+											<select class="form-control select2" name="category_id">
+												<option label="Choose one"></option>
+												@foreach ($categories as $category)
+													<option value="{{ $category->id }}">{{ $category->name }}</option>
+												@endforeach
+											</select>
+										</div>
+									@endisset
+
 									@foreach (config('translatable.locales') as $i=>$locale)
 									<div class="form-group">
 										<input type="text" class="form-control" name="{{ $locale }}[product_name]" placeholder="@lang('site.'.$locale.'.prduct name')" value="{{ old($locale.'.product_name') }}">

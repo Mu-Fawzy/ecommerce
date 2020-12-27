@@ -2,6 +2,8 @@
 @section('css')
 <!-- Internal Select2 css -->
 <link href="{{URL::asset('dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<!---Internal Fileupload css-->
+<link href="{{URL::asset('dashboard/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
 <!--Internal  Datetimepicker-slider css -->
 <link href="{{URL::asset('dashboard/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('dashboard/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}" rel="stylesheet">
@@ -14,7 +16,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">@lang('site.categories')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $category->name }}</span>
+							<h4 class="content-title mb-0 my-auto">@lang('site.products')</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $product->product_name }}</span>
 						</div>
 					</div>
 				</div>
@@ -27,20 +29,54 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="card  box-shadow-0">
 							<div class="card-header">
-								<h4 class="card-title mb-3">{{ $category->name }}</h4>
+								<h4 class="card-title mb-2">@lang('site.edit') {{ $product->product_name }}</h4>
 							</div>
 							<div class="card-body pt-0">
-								<form class="form-horizontal" action="{{ route('categories.update', $category->id) }}" method="POST">
+
+								<form class="form-horizontal" action="{{ route('products.update' , $product->id) }}" method="POST" enctype="multipart/form-data">
 									@csrf
 									@method('PUT')
-									@foreach (config('translatable.locales') as $locale)
+
+									@isset($categories)
 										<div class="form-group">
-											<input type="text" class="form-control" name="{{ $locale }}[name]" placeholder="@lang('site.'.$locale.'.category name')" value="{{ $category->translate($locale)->name }}">
+											<select class="form-control select2" name="category_id">
+												<option label="Choose one"></option>
+												@foreach ($categories as $category)
+													<option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+												@endforeach
+											</select>
 										</div>
+									@endisset
+
+									@foreach (config('translatable.locales') as $i=>$locale)
+									<div class="form-group">
+										<input type="text" class="form-control" name="{{ $locale }}[product_name]" placeholder="@lang('site.'.$locale.'.prduct name')" value="{{ $product->translate($locale)->product_name }}">
+									</div>
+									
+									<div class="form-group">
+										<textarea class="form-control" name="{{ $locale }}[description]" rows="3" placeholder="@lang('site.'.$locale.'.description')">{{ $product->translate($locale)->description }}</textarea>
+									</div>
 									@endforeach
+									<div class="form-group">
+										<div class="row mb-4">
+											<div class="col-sm-12 col-md-12 mg-t-10 mg-sm-t-0">
+												<input type="file" class="dropify" name="photo" data-default-file="{{URL::asset($product->file_path)}}" data-height="200" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="number" step="0.01" class="form-control" name="purchase_price" placeholder="@lang('site.purchase price')" value="{{ $product->purchase_price }}">
+									</div>
+									<div class="form-group">
+										<input type="number" step="0.01" class="form-control" name="sale_price" placeholder="@lang('site.sale price')" value="{{ $product->sale_price }}">
+									</div>
+									<div class="form-group">
+										<input type="number" class="form-control" name="stock" placeholder="@lang('site.stock')" value="{{ $product->stock }}">
+									</div>
+									
 									<div class="form-group mb-0 mt-3 justify-content-end">
 										<div>
-											<button type="submit" class="btn btn-primary">@lang('site.update')</button>
+											<button type="submit" class="btn btn-primary">@lang('site.update') @lang('site.product')</button>
 										</div>
 									</div>
 								</form>

@@ -65,6 +65,7 @@
 												<th class="wd-lg-20p"><span>@lang('site.product')</span></th>
 												<th class="wd-lg-20p"><span></span></th>
 												<th class="wd-lg-20p"><span>@lang('site.'.app()->getLocale().'.description')</span></th>
+												<th class="wd-lg-20p"><span>@lang('site.category')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.purchase price')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.sale price')</span></th>
 												<th class="wd-lg-20p"><span>@lang('site.stock')</span></th>
@@ -79,6 +80,7 @@
 														<td><img class="rounded-circle avatar-md mr-2" src="{{ URL::asset($product->file_path) }}" alt=""></td>
 														<td>{{ $product->product_name }}</td>
 														<td>{{ $product->description }}</td>
+														<td>{{ $product->category->name }}</td>
 														<td>{{ $product->purchase_price }}</td>
 														<td>{{ $product->sale_price }}</td>
 														<td>{{ $product->stock }}</td>

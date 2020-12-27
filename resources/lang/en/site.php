@@ -66,6 +66,7 @@ return [
     'The file size is too big (2M max).'   => 'The file size is too big (2M max).',
 
     'create'   => 'Create',
+    'edit'   => 'Edit',
     'read'   => 'Read',
     'update'   => 'Update',
     'delete'   => 'Delete',

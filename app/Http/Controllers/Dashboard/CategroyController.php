@@ -25,7 +25,7 @@ class CategroyController extends Controller
     {
         $categories = Category::where(function($query) use($request) {
             return $query->when($request->s,function($q) use($request){
-                return $q->where('name','like', '%'.$request->s.'%');
+                return $q->whereTranslationLike('name', '%'.$request->s.'%');
             });
         })->latest()->paginate(5);
         
@@ -90,7 +90,7 @@ class CategroyController extends Controller
             $rules += [$locale.'.name' => [
                 'required',
                 'min:4', 
-                Rule::unique('category_translations','name')->ignore($category->id)
+                Rule::unique('category_translations','name')->ignore($category->id,'category_id')
                 ]
             ];
         }

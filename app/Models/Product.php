@@ -12,7 +12,7 @@ class Product extends Model implements TranslatableContract
     use HasFactory;
     use Translatable;
 
-    protected $fillable = ['photo','purchase_price','sale_price','stock'];
+    protected $fillable = ['photo','purchase_price','sale_price','stock','category_id'];
 
     public $translatedAttributes = ['product_name','description'];
 
@@ -21,5 +21,10 @@ class Product extends Model implements TranslatableContract
     public function getFilePathAttribute()
     {
         return 'uploads/products/'. $this->photo;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }
